@@ -140,9 +140,9 @@ namespace ArdupilotMega.GCSViews
 
         private void UAS_ComputerModeChanged(object sender, EventArgs e)
         {
-            //MAVLink.mavlink_computer_mode_t computer_mode = new MAVLink.mavlink_computer_mode_t();
-            //computer_mode.mode = (byte)compModeBar.Value;
-            //MainV2.comPort.sendPacket(computer_mode);
+            MAVLink.mavlink_computer_mode_t computer_mode = new MAVLink.mavlink_computer_mode_t();
+            computer_mode.mode = (byte)compModeBar.Value;
+            MainV2.comPort.sendPacket(computer_mode);
         }
 
         private void UAS_Connect(Object sender, EventArgs e)

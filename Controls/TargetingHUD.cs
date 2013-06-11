@@ -32,10 +32,10 @@ namespace ArdupilotMega.Controls
 
         public override void doPaint(PaintEventArgs e)
         {
-            //tx1 = (int)MainV2.comPort.MAV.cs.target_x1;
-            //tx2 = (int)MainV2.comPort.MAV.cs.target_x2;
-            //ty1 = (int)MainV2.comPort.MAV.cs.target_y1;
-            //ty2 = (int)MainV2.comPort.MAV.cs.target_y2;
+            tx1 = (int)MainV2.comPort.MAV.cs.target_x1;
+            tx2 = (int)MainV2.comPort.MAV.cs.target_x2;
+            ty1 = (int)MainV2.comPort.MAV.cs.target_y1;
+            ty2 = (int)MainV2.comPort.MAV.cs.target_y2;
             if (graphicsObjectGDIP == null || !opengl && (objBitmap.Width != this.Width || objBitmap.Height != this.Height))
             {
                 objBitmap = new Bitmap(this.Width, this.Height);
@@ -153,12 +153,12 @@ namespace ArdupilotMega.Controls
             ty2 = e.Y;
             this.MouseMove -= new System.Windows.Forms.MouseEventHandler(this.Target_MouseMove);
 
-            //MAVLink.mavlink_vision_set_target_box_t vision_position = new MAVLink.mavlink_vision_set_target_box_t();
-            //vision_position.topLeftX = tx1;
-            //vision_position.topLeftY = ty1;
-            //vision_position.bottomRightX = tx2;
-            //vision_position.bottomRightY = ty2;
-            //MainV2.comPort.sendPacket(vision_position);
+            MAVLink.mavlink_set_vision_target_box_t vision_position = new MAVLink.mavlink_set_vision_target_box_t();
+            vision_position.topLeftX = tx1;
+            vision_position.topLeftY = ty1;
+            vision_position.bottomRightX = tx2;
+            vision_position.bottomRightY = ty2;
+            MainV2.comPort.sendPacket(vision_position);
         }
     }
 }
