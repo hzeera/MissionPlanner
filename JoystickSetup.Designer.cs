@@ -70,6 +70,7 @@
             this.label13 = new System.Windows.Forms.Label();
             this.expo_ch8 = new System.Windows.Forms.TextBox();
             this.CMB_CH8 = new System.Windows.Forms.ComboBox();
+            this.CHK_controller = new System.Windows.Forms.CheckBox();
             this.BUT_detch8 = new ArdupilotMega.Controls.MyButton();
             this.horizontalProgressBar4 = new ArdupilotMega.HorizontalProgressBar();
             this.BUT_detch4 = new ArdupilotMega.Controls.MyButton();
@@ -88,7 +89,8 @@
             this.horizontalProgressBar2 = new ArdupilotMega.HorizontalProgressBar();
             this.BUT_detch7 = new ArdupilotMega.Controls.MyButton();
             this.horizontalProgressBar3 = new ArdupilotMega.HorizontalProgressBar();
-            this.CHK_controller = new System.Windows.Forms.CheckBox();
+            this.elevRevCH1 = new System.Windows.Forms.CheckBox();
+            this.elevRevCH2 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // CMB_joysticks
@@ -376,6 +378,13 @@
             this.CMB_CH8.Name = "CMB_CH8";
             this.CMB_CH8.SelectedIndexChanged += new System.EventHandler(this.CMB_CH8_SelectedIndexChanged);
             // 
+            // CHK_controller
+            // 
+            resources.ApplyResources(this.CHK_controller, "CHK_controller");
+            this.CHK_controller.Name = "CHK_controller";
+            this.CHK_controller.UseVisualStyleBackColor = true;
+            this.CHK_controller.CheckedChanged += new System.EventHandler(this.CHK_controller_CheckedChanged);
+            // 
             // BUT_detch8
             // 
             resources.ApplyResources(this.BUT_detch8, "BUT_detch8");
@@ -534,17 +543,26 @@
             this.horizontalProgressBar3.Name = "horizontalProgressBar3";
             this.horizontalProgressBar3.Value = 800;
             // 
-            // CHK_controller
+            // elevRevCH1
             // 
-            resources.ApplyResources(this.CHK_controller, "CHK_controller");
-            this.CHK_controller.Name = "CHK_controller";
-            this.CHK_controller.UseVisualStyleBackColor = true;
-            this.CHK_controller.CheckedChanged += new System.EventHandler(this.CHK_controller_CheckedChanged);
+            resources.ApplyResources(this.elevRevCH1, "elevRevCH1");
+            this.elevRevCH1.Name = "elevRevCH1";
+            this.elevRevCH1.UseVisualStyleBackColor = true;
+            this.elevRevCH1.CheckedChanged += new System.EventHandler(this.elevRevCH1_CheckedChanged);
+            // 
+            // elevRevCH2
+            // 
+            resources.ApplyResources(this.elevRevCH2, "elevRevCH2");
+            this.elevRevCH2.Name = "elevRevCH2";
+            this.elevRevCH2.UseVisualStyleBackColor = true;
+            this.elevRevCH2.CheckedChanged += new System.EventHandler(this.elevRevCH2_CheckedChanged);
             // 
             // JoystickSetup
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.elevRevCH2);
+            this.Controls.Add(this.elevRevCH1);
             this.Controls.Add(this.CHK_controller);
             this.Controls.Add(this.BUT_detch8);
             this.Controls.Add(this.revCH8);
@@ -672,5 +690,7 @@
         private HorizontalProgressBar horizontalProgressBar4;
         private System.Windows.Forms.ComboBox CMB_CH8;
         private System.Windows.Forms.CheckBox CHK_controller;
+        private System.Windows.Forms.CheckBox elevRevCH1;
+        private System.Windows.Forms.CheckBox elevRevCH2;
     }
 }

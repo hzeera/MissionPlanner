@@ -82,6 +82,8 @@ namespace ArdupilotMega
                 expo_ch8.Text = MainV2.config["expo_ch8"].ToString();
 
                 CHK_elevons.Checked = bool.Parse(MainV2.config["joy_elevons"].ToString());
+
+                CHK_controller.Checked = MainV2.comPort.MAV.cs.controller_override;
             }
             catch { } // IF 1 DOESNT EXIST NONE WILL
 
@@ -252,7 +254,7 @@ namespace ArdupilotMega
                         {
                             string name = (f + 1).ToString();
 
-                            doButtontoUI(name, 10, 290 + f * 25);
+                            doButtontoUI(name, 10, 360 + f * 35);
 
                             joy.setButton(f, int.Parse(this.Controls.Find("cmbbutton" + name, false)[0].Text), this.Controls.Find("cmbaction" + name, false)[0].Text);
                         }
@@ -418,11 +420,11 @@ namespace ArdupilotMega
             // do this here so putting in text works
             this.Controls.AddRange(new Control[] { lbl, cmbbutton, mybut, hbar, cmbaction });
 
-            lbl.Location = new Point(x, y);
-            lbl.Size = new Size(47, 13);
+            lbl.Location = new Point(x, y + 10);
+            lbl.Size = new Size(60, 13);
             lbl.Text = "Button " + name;
 
-            cmbbutton.Location = new Point(72, y);
+            cmbbutton.Location = new Point(96, y);
             cmbbutton.Size = new Size(70, 21);
             cmbbutton.DataSource = getButtonNumbers();
             cmbbutton.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -559,6 +561,16 @@ namespace ArdupilotMega
         private void CHK_controller_CheckedChanged(object sender, EventArgs e)
         {
             MainV2.comPort.MAV.cs.controller_override = !MainV2.comPort.MAV.cs.controller_override;
+        }
+
+        private void elevRevCH1_CheckedChanged(object sender, EventArgs e)
+        {
+            MainV2.joystick.elevRev1 = !MainV2.joystick.elevRev1;
+        }
+
+        private void elevRevCH2_CheckedChanged(object sender, EventArgs e)
+        {
+            MainV2.joystick.elevRev2 = !MainV2.joystick.elevRev2;
         }
     }
 }

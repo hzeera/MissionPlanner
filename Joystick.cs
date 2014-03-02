@@ -51,6 +51,7 @@ namespace ArdupilotMega
 
         JoyChannel[] JoyChannels = new JoyChannel[9]; // we are base 1
         JoyButton[] JoyButtons = new JoyButton[128]; // base 0
+        public bool elevRev1, elevRev2;
 
         public static DeviceList getDevices()
         {
@@ -329,14 +330,37 @@ namespace ArdupilotMega
                         MainV2.comPort.MAV.cs.rcoverridech8 = pickchannel(8, JoyChannels[8].axis, JoyChannels[8].reverse, JoyChannels[8].expo);
 
                     //UAS
-                    if(JoyChannels[1].reverse)
-                        MainV2.comPort.MAV.cs.controlleroverridech1 = (ushort)(65535 - state.X);
+                    if (elevons)
+                    {
+                        if (JoyChannels[1].reverse && elevRev1)
+                            MainV2.comPort.MAV.cs.controlleroverridech1 = (ushort)(65535 - (((int)state.X + (int)(65535 - state.Y)) / 2));
+                        else if(JoyChannels[1].reverse)
+                            MainV2.comPort.MAV.cs.controlleroverridech1 = (ushort)(65535 - ((int)state.X + (int)state.Y) / 2);
+                        else if(elevRev1)
+                            MainV2.comPort.MAV.cs.controlleroverridech1 = (ushort)(((int)state.X + (int)(65535 - state.Y)) / 2);
+                        else
+                            MainV2.comPort.MAV.cs.controlleroverridech1 = (ushort)(((int)state.X + (int)state.Y) / 2);
+
+                        if (JoyChannels[2].reverse && elevRev2)
+                            MainV2.comPort.MAV.cs.controlleroverridech2 = (ushort)(65535 - (((int)state.X + (int)(65535 - state.Y)) / 2));
+                        else if (JoyChannels[2].reverse)
+                            MainV2.comPort.MAV.cs.controlleroverridech2 = (ushort)(65535 - ((int)state.X + (int)state.Y) / 2);
+                        else if (elevRev2)
+                            MainV2.comPort.MAV.cs.controlleroverridech2 = (ushort)(((int)state.X + (int)(65535 - state.Y)) / 2);
+                        else
+                            MainV2.comPort.MAV.cs.controlleroverridech2 = (ushort)(((int)state.X + (int)state.Y) / 2);
+                    }
                     else
-                        MainV2.comPort.MAV.cs.controlleroverridech1 = (ushort)state.X;
-                    if (JoyChannels[2].reverse)
-                        MainV2.comPort.MAV.cs.controlleroverridech2 = (ushort)(65535 - state.Y);
-                    else
-                        MainV2.comPort.MAV.cs.controlleroverridech2 = (ushort)state.Y;
+                    {
+                        if (JoyChannels[1].reverse)
+                            MainV2.comPort.MAV.cs.controlleroverridech1 = (ushort)(65535 - state.X);
+                        else
+                            MainV2.comPort.MAV.cs.controlleroverridech1 = (ushort)state.X;
+                        if (JoyChannels[2].reverse)
+                            MainV2.comPort.MAV.cs.controlleroverridech2 = (ushort)(65535 - state.Y);
+                        else
+                            MainV2.comPort.MAV.cs.controlleroverridech2 = (ushort)state.Y;
+                    }
                     if (JoyChannels[3].reverse)
                         MainV2.comPort.MAV.cs.controlleroverridech3 = (ushort)(65535 - state.GetSlider()[0]);
                     else
