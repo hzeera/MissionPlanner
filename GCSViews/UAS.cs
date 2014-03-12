@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Timers;
+using System.Diagnostics;
+using System.Threading;
+using System.IO;
 
 //using ArdupilotMega.Controls.BackstageView;
 
@@ -75,7 +78,7 @@ namespace ArdupilotMega.GCSViews
         void cam_camimage(Image camimage)
         {
             hud1.bgimage = camimage;
-            //hud1.DrawImage(camimage, 0, 0, hud1.Width, hud1.Height);
+            hud1.DrawImage(camimage, 0, 0, hud1.Width, hud1.Height);
         }
 
         //paint rectangle
@@ -155,6 +158,60 @@ namespace ArdupilotMega.GCSViews
             stabpitchCheck.Enabled = true;
             stabyawCheck.Enabled = true;
             compModeBar.Enabled = true;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            TLDTracker tldTracker = new TLDTracker();
+            Thread thread = new Thread(new ThreadStart(tldTracker.runTLD));
+            thread.Start();
+        }
+    }
+
+    class TLDTracker
+    {
+        public void runTLD()
+        {
+            Process TLDApp = new Process();
+            TLDApp.StartInfo.UseShellExecute = false;
+            TLDApp.StartInfo.RedirectStandardOutput = true;
+            TLDApp.StartInfo.FileName = @"C:\Users\Hussain\Downloads\gnebehay-OpenTLD-808300c\bin\Debug\opentld.exe";
+            TLDApp.StartInfo.Arguments = "-s";
+            TLDApp.Start();
+
+            string output;
+            string[] splitOutput;
+            while (!TLDApp.HasExited)
+            {
+                output = TLDApp.StandardOutput.ReadLine();
+                if (output == null)
+                    continue;
+                splitOutput = output.Split(' ');
+
+                int tx1 = 0;
+                int ty1 = 0;
+                int tx2 = 0;
+                int ty2 = 0;
+                try
+                {
+                    tx1 = Convert.ToInt32(splitOutput[1]);
+                    ty1 = Convert.ToInt32(splitOutput[2]);
+                    tx2 = tx1 + Convert.ToInt32(splitOutput[3]);
+                    ty2 = ty1 + Convert.ToInt32(splitOutput[4]);
+                }
+                catch (Exception e)
+                {
+                    continue;
+                }
+
+                MAVLink.mavlink_set_vision_target_box_t vision_position = new MAVLink.mavlink_set_vision_target_box_t();
+                vision_position.topLeftX = tx1;
+                vision_position.topLeftY = ty1;
+                vision_position.bottomRightX = tx2;
+                vision_position.bottomRightY = ty2;
+                MainV2.comPort.sendPacket(vision_position);
+            }
+
         }
     }
 }

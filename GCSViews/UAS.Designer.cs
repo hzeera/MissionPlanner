@@ -46,6 +46,7 @@
             this.autoLabel = new System.Windows.Forms.Label();
             this.semiLabel = new System.Windows.Forms.Label();
             this.standbyLabel = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.hTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.compModeBar)).BeginInit();
@@ -54,7 +55,7 @@
             // hTrackBar
             // 
             this.hTrackBar.Location = new System.Drawing.Point(0, 303);
-            this.hTrackBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.hTrackBar.Margin = new System.Windows.Forms.Padding(4);
             this.hTrackBar.Name = "hTrackBar";
             this.hTrackBar.Size = new System.Drawing.Size(427, 56);
             this.hTrackBar.TabIndex = 6;
@@ -64,7 +65,7 @@
             // vTrackBar
             // 
             this.vTrackBar.Location = new System.Drawing.Point(423, 0);
-            this.vTrackBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.vTrackBar.Margin = new System.Windows.Forms.Padding(4);
             this.vTrackBar.Name = "vTrackBar";
             this.vTrackBar.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.vTrackBar.Size = new System.Drawing.Size(56, 295);
@@ -75,7 +76,7 @@
             // reset
             // 
             this.reset.Location = new System.Drawing.Point(423, 303);
-            this.reset.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.reset.Margin = new System.Windows.Forms.Padding(4);
             this.reset.Name = "reset";
             this.reset.Size = new System.Drawing.Size(60, 55);
             this.reset.TabIndex = 8;
@@ -94,7 +95,7 @@
             "RC_TARGETING",
             "GPS_POINT"});
             this.modeBox.Location = new System.Drawing.Point(523, 59);
-            this.modeBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.modeBox.Margin = new System.Windows.Forms.Padding(4);
             this.modeBox.Name = "modeBox";
             this.modeBox.Size = new System.Drawing.Size(175, 84);
             this.modeBox.TabIndex = 9;
@@ -136,7 +137,7 @@
             this.stabilityCheck.Checked = true;
             this.stabilityCheck.CheckState = System.Windows.Forms.CheckState.Checked;
             this.stabilityCheck.Location = new System.Drawing.Point(585, 181);
-            this.stabilityCheck.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.stabilityCheck.Margin = new System.Windows.Forms.Padding(4);
             this.stabilityCheck.Name = "stabilityCheck";
             this.stabilityCheck.Size = new System.Drawing.Size(54, 21);
             this.stabilityCheck.TabIndex = 16;
@@ -150,7 +151,7 @@
             this.stabpitchCheck.Checked = true;
             this.stabpitchCheck.CheckState = System.Windows.Forms.CheckState.Checked;
             this.stabpitchCheck.Location = new System.Drawing.Point(652, 181);
-            this.stabpitchCheck.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.stabpitchCheck.Margin = new System.Windows.Forms.Padding(4);
             this.stabpitchCheck.Name = "stabpitchCheck";
             this.stabpitchCheck.Size = new System.Drawing.Size(61, 21);
             this.stabpitchCheck.TabIndex = 17;
@@ -164,7 +165,7 @@
             this.stabyawCheck.Checked = true;
             this.stabyawCheck.CheckState = System.Windows.Forms.CheckState.Checked;
             this.stabyawCheck.Location = new System.Drawing.Point(727, 181);
-            this.stabyawCheck.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.stabyawCheck.Margin = new System.Windows.Forms.Padding(4);
             this.stabyawCheck.Name = "stabyawCheck";
             this.stabyawCheck.Size = new System.Drawing.Size(56, 21);
             this.stabyawCheck.TabIndex = 18;
@@ -203,6 +204,7 @@
             this.hud1.current = 0F;
             this.hud1.datetime = new System.DateTime(((long)(0)));
             this.hud1.disttowp = 0F;
+            this.hud1.failsafe = false;
             this.hud1.gpsfix = 0F;
             this.hud1.gpshdop = 0F;
             this.hud1.groundalt = 0F;
@@ -212,7 +214,9 @@
             this.hud1.hudcolor = System.Drawing.Color.White;
             this.hud1.linkqualitygcs = 0F;
             this.hud1.Location = new System.Drawing.Point(0, 0);
-            this.hud1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.hud1.lowvoltagealert = false;
+            this.hud1.Margin = new System.Windows.Forms.Padding(5);
+            this.hud1.message = "";
             this.hud1.mode = "Manual";
             this.hud1.Name = "hud1";
             this.hud1.navpitch = 0F;
@@ -236,7 +240,7 @@
             // compModeBar
             // 
             this.compModeBar.Location = new System.Drawing.Point(523, 209);
-            this.compModeBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.compModeBar.Margin = new System.Windows.Forms.Padding(4);
             this.compModeBar.Maximum = 2;
             this.compModeBar.Name = "compModeBar";
             this.compModeBar.Size = new System.Drawing.Size(229, 56);
@@ -273,10 +277,21 @@
             this.standbyLabel.TabIndex = 25;
             this.standbyLabel.Text = "STANDBY";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(622, 320);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 26;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // UAS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.standbyLabel);
             this.Controls.Add(this.semiLabel);
             this.Controls.Add(this.autoLabel);
@@ -294,7 +309,7 @@
             this.Controls.Add(this.reset);
             this.Controls.Add(this.vTrackBar);
             this.Controls.Add(this.hTrackBar);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "UAS";
             this.Size = new System.Drawing.Size(813, 357);
             this.ParentChanged += new System.EventHandler(this.UAS_ParentChanged);
@@ -325,6 +340,7 @@
         private System.Windows.Forms.Label autoLabel;
         private System.Windows.Forms.Label semiLabel;
         private System.Windows.Forms.Label standbyLabel;
+        private System.Windows.Forms.Button button1;
 
 
     }

@@ -32,10 +32,10 @@ namespace ArdupilotMega.Controls
 
         public override void doPaint(PaintEventArgs e)
         {
-            tx1 = (int)MainV2.comPort.MAV.cs.target_x1;
-            tx2 = (int)MainV2.comPort.MAV.cs.target_x2;
-            ty1 = (int)MainV2.comPort.MAV.cs.target_y1;
-            ty2 = (int)MainV2.comPort.MAV.cs.target_y2;
+            //tx1 = (int)MainV2.comPort.MAV.cs.target_x1;
+            //tx2 = (int)MainV2.comPort.MAV.cs.target_x2;
+            //ty1 = (int)MainV2.comPort.MAV.cs.target_y1;
+            //ty2 = (int)MainV2.comPort.MAV.cs.target_y2;
             if (graphicsObjectGDIP == null || !opengl && (objBitmap.Width != this.Width || objBitmap.Height != this.Height))
             {
                 objBitmap = new Bitmap(this.Width, this.Height);
@@ -97,7 +97,6 @@ namespace ArdupilotMega.Controls
             Pen greenPen = new Pen(Color.Green, 2);
             Pen redPen = new Pen(Color.Red, 2);
 
-            // draw sky
             if (bgon == true)
             {
                 RectangleF bg = new RectangleF(-halfwidth * 2, -halfheight * 2, this.Width * 2, halfheight * 2 + pitchoffset);
@@ -109,7 +108,6 @@ namespace ArdupilotMega.Controls
 
                     FillRectangle(linearBrush, bg);
                 }
-                // draw ground
 
                 bg = new RectangleF(-halfwidth * 2, pitchoffset, this.Width * 2, halfheight * 2 - pitchoffset);
 
