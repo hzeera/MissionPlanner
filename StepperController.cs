@@ -23,6 +23,25 @@ namespace ArdupilotMega
             run = true;
             commands = new Queue<Tuple<char, int>>();
             port = new SerialPort(portName, baudRate);
+        }
+        
+        public void setPortName(String portName)
+        {
+            if (port.IsOpen)
+            {
+                log.Error("Cannot change port name when Serial Port is open.");
+                return;
+            }
+            port.PortName = portName;
+        }
+
+        public void setBaudRate(int baudRate)
+        {
+            port.BaudRate = baudRate;
+        }
+
+        public void Open()
+        {
             if (!port.IsOpen)
             {
                 try
@@ -34,8 +53,8 @@ namespace ArdupilotMega
                     log.Error(e.Message);
                 }
             }
-
             readThread = new Thread(this.Read);
+            readThread.Start();
         }
 
         private void Read()

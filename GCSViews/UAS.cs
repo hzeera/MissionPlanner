@@ -10,6 +10,7 @@ using System.Timers;
 using System.Diagnostics;
 using System.Threading;
 using System.IO;
+using System.IO.Ports;
 
 //using ArdupilotMega.Controls.BackstageView;
 
@@ -23,9 +24,15 @@ namespace ArdupilotMega.GCSViews
         public static ArdupilotMega.Controls.TargetingHUD myhud;
         private System.Timers.Timer timer; 
         public EventHandler ConnectHandler;
+        private StepperController stepperController;
 
         public UAS()
         {
+            foreach(string port in SerialPort.GetPortNames())
+            {
+                portNameBox.Items.Add(port);
+            }
+            stepperController = new StepperController("COM7", 9600);
             InitializeComponent();
             if (!hud1.Visible)
                 hud1.Visible = true;
@@ -51,9 +58,9 @@ namespace ArdupilotMega.GCSViews
             timer.Elapsed += new ElapsedEventHandler(timer_Elapsed);
             timer.Start();
 
-            hTrackBar.Maximum = 9000;
-            hTrackBar.Minimum = -9000;
-            hTrackBar.Value = 0;
+            hTrackBar.Maximum = 360;
+            hTrackBar.Minimum = 0;
+            hTrackBar.Value = 180;
             vTrackBar.Maximum = 0;
             vTrackBar.Minimum = -9000;
             vTrackBar.Value = -4500;
@@ -89,10 +96,8 @@ namespace ArdupilotMega.GCSViews
 
         void UAS_hTrackBarMoved(object sender, EventArgs e)
         {
-            //Not sure if this is the right value
-            MainV2.comPort.setMountControl(0, hTrackBar.Value, 0, false);
-            pitchLabel.Text = "Pitch: " + vTrackBar.Value / 100;
             rollLabel.Text = "Roll: " + hTrackBar.Value / 100;
+            stepperController.setAngle(hTrackBar.Value);
         }
 
         void UAS_vTrackBarMoved(object sender, EventArgs e)
@@ -160,11 +165,22 @@ namespace ArdupilotMega.GCSViews
             compModeBar.Enabled = true;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void portNameBox_IndexChanged(object sender, EventArgs e)
+        {
+            stepperController.setPortName(portNameBox.Items[portNameBox.SelectedIndex].ToString());
+        }
+
+        private void trackButton_Click(object sender, EventArgs e)
         {
             TLDTracker tldTracker = new TLDTracker();
             Thread thread = new Thread(new ThreadStart(tldTracker.runTLD));
             thread.Start();
+        }
+
+        private void portButton_Click(object sender, EventArgs e)
+        {
+            stepperController.Open();
+            hTrackBar.ValueChanged += UAS_hTrackBarMoved;
         }
     }
 

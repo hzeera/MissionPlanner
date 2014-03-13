@@ -46,7 +46,9 @@
             this.autoLabel = new System.Windows.Forms.Label();
             this.semiLabel = new System.Windows.Forms.Label();
             this.standbyLabel = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.trackButton = new System.Windows.Forms.Button();
+            this.portNameBox = new System.Windows.Forms.ComboBox();
+            this.portButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.hTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.compModeBar)).BeginInit();
@@ -60,7 +62,6 @@
             this.hTrackBar.Size = new System.Drawing.Size(427, 56);
             this.hTrackBar.TabIndex = 6;
             this.hTrackBar.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.hTrackBar.ValueChanged += new System.EventHandler(this.UAS_hTrackBarMoved);
             // 
             // vTrackBar
             // 
@@ -277,21 +278,43 @@
             this.standbyLabel.TabIndex = 25;
             this.standbyLabel.Text = "STANDBY";
             // 
-            // button1
+            // trackButton
             // 
-            this.button1.Location = new System.Drawing.Point(622, 320);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 26;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.trackButton.Location = new System.Drawing.Point(564, 319);
+            this.trackButton.Name = "trackButton";
+            this.trackButton.Size = new System.Drawing.Size(169, 40);
+            this.trackButton.TabIndex = 26;
+            this.trackButton.Text = "Start Tracker";
+            this.trackButton.UseVisualStyleBackColor = true;
+            this.trackButton.Click += new System.EventHandler(this.trackButton_Click);
+            // 
+            // portNameBox
+            // 
+            this.portNameBox.FormattingEnabled = true;
+            this.portNameBox.Location = new System.Drawing.Point(842, 59);
+            this.portNameBox.Name = "portNameBox";
+            this.portNameBox.Size = new System.Drawing.Size(121, 24);
+            this.portNameBox.TabIndex = 27;
+            this.portNameBox.Text = "Choose Port...";
+            this.portNameBox.SelectedIndexChanged += new System.EventHandler(this.portNameBox_IndexChanged);
+            // 
+            // portButton
+            // 
+            this.portButton.Location = new System.Drawing.Point(842, 89);
+            this.portButton.Name = "portButton";
+            this.portButton.Size = new System.Drawing.Size(121, 34);
+            this.portButton.TabIndex = 28;
+            this.portButton.Text = "Open Port";
+            this.portButton.UseVisualStyleBackColor = true;
+            this.portButton.Click += new System.EventHandler(this.portButton_Click);
             // 
             // UAS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.portButton);
+            this.Controls.Add(this.portNameBox);
+            this.Controls.Add(this.trackButton);
             this.Controls.Add(this.standbyLabel);
             this.Controls.Add(this.semiLabel);
             this.Controls.Add(this.autoLabel);
@@ -311,7 +334,7 @@
             this.Controls.Add(this.hTrackBar);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "UAS";
-            this.Size = new System.Drawing.Size(813, 357);
+            this.Size = new System.Drawing.Size(1015, 465);
             this.ParentChanged += new System.EventHandler(this.UAS_ParentChanged);
             ((System.ComponentModel.ISupportInitialize)(this.hTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vTrackBar)).EndInit();
@@ -340,7 +363,9 @@
         private System.Windows.Forms.Label autoLabel;
         private System.Windows.Forms.Label semiLabel;
         private System.Windows.Forms.Label standbyLabel;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button trackButton;
+        private System.Windows.Forms.ComboBox portNameBox;
+        private System.Windows.Forms.Button portButton;
 
 
     }

@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|Win32">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|Win32">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{F2297F40-F60A-48F0-A77E-719299D63CCE}</ProjectGUID>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>INSTALL</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType></ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType></ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'" Label="Configuration">
+    <ConfigurationType></ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'" Label="Configuration">
+    <ConfigurationType></ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+    <PropertyGroup>
+      <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:/OpenCV/build;C:/OpenCV/include;C:/OpenCV/include/opencv;C:/OpenCV/modules/core/include;C:/OpenCV/modules/imgproc/include;C:/OpenCV/modules/flann/include;C:/OpenCV/modules/highgui/include;C:/OpenCV/modules/features2d/include;C:/OpenCV/modules/calib3d/include;C:/OpenCV/modules/ml/include;C:/OpenCV/modules/video/include;C:/OpenCV/modules/objdetect/include;C:/OpenCV/modules/contrib/include;C:/OpenCV/modules/photo/include;C:/OpenCV/modules/legacy/include;C:/OpenCV/modules/gpu/include;C:/OpenCV/modules/nonfree/include;C:/OpenCV/modules/stitching/include;C:/OpenCV/modules/superres/include;C:/OpenCV/modules/ts/include;C:/OpenCV/modules/videostab/include;C:/Users/Hussain/Downloads/gnebehay-OpenTLD-808300c/src/opentld/main;C:/Users/Hussain/Downloads/gnebehay-OpenTLD-808300c/src/opentld/../libopentld/imacq;C:/Users/Hussain/Downloads/gnebehay-OpenTLD-808300c/src/opentld/../libopentld/mftracker;C:/Users/Hussain/Downloads/gnebehay-OpenTLD-808300c/src/opentld/../libopentld/tld;C:/Users/Hussain/Downloads/gnebehay-OpenTLD-808300c/src/opentld/../3rdparty/cvblobs;C:/Users/Hussain/Downloads/gnebehay-OpenTLD-808300c/src/opentld/../3rdparty/libconfig;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" -DBUILD_TYPE=$(Configuration) -P cmake_install.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:/OpenCV/build;C:/OpenCV/include;C:/OpenCV/include/opencv;C:/OpenCV/modules/core/include;C:/OpenCV/modules/imgproc/include;C:/OpenCV/modules/flann/include;C:/OpenCV/modules/highgui/include;C:/OpenCV/modules/features2d/include;C:/OpenCV/modules/calib3d/include;C:/OpenCV/modules/ml/include;C:/OpenCV/modules/video/include;C:/OpenCV/modules/objdetect/include;C:/OpenCV/modules/contrib/include;C:/OpenCV/modules/photo/include;C:/OpenCV/modules/legacy/include;C:/OpenCV/modules/gpu/include;C:/OpenCV/modules/nonfree/include;C:/OpenCV/modules/stitching/include;C:/OpenCV/modules/superres/include;C:/OpenCV/modules/ts/include;C:/OpenCV/modules/videostab/include;C:/Users/Hussain/Downloads/gnebehay-OpenTLD-808300c/src/opentld/main;C:/Users/Hussain/Downloads/gnebehay-OpenTLD-808300c/src/opentld/../libopentld/imacq;C:/Users/Hussain/Downloads/gnebehay-OpenTLD-808300c/src/opentld/../libopentld/mftracker;C:/Users/Hussain/Downloads/gnebehay-OpenTLD-808300c/src/opentld/../libopentld/tld;C:/Users/Hussain/Downloads/gnebehay-OpenTLD-808300c/src/opentld/../3rdparty/cvblobs;C:/Users/Hussain/Downloads/gnebehay-OpenTLD-808300c/src/opentld/../3rdparty/libconfig;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" -DBUILD_TYPE=$(Configuration) -P cmake_install.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:/OpenCV/build;C:/OpenCV/include;C:/OpenCV/include/opencv;C:/OpenCV/modules/core/include;C:/OpenCV/modules/imgproc/include;C:/OpenCV/modules/flann/include;C:/OpenCV/modules/highgui/include;C:/OpenCV/modules/features2d/include;C:/OpenCV/modules/calib3d/include;C:/OpenCV/modules/ml/include;C:/OpenCV/modules/video/include;C:/OpenCV/modules/objdetect/include;C:/OpenCV/modules/contrib/include;C:/OpenCV/modules/photo/include;C:/OpenCV/modules/legacy/include;C:/OpenCV/modules/gpu/include;C:/OpenCV/modules/nonfree/include;C:/OpenCV/modules/stitching/include;C:/OpenCV/modules/superres/include;C:/OpenCV/modules/ts/include;C:/OpenCV/modules/videostab/include;C:/Users/Hussain/Downloads/gnebehay-OpenTLD-808300c/src/opentld/main;C:/Users/Hussain/Downloads/gnebehay-OpenTLD-808300c/src/opentld/../libopentld/imacq;C:/Users/Hussain/Downloads/gnebehay-OpenTLD-808300c/src/opentld/../libopentld/mftracker;C:/Users/Hussain/Downloads/gnebehay-OpenTLD-808300c/src/opentld/../libopentld/tld;C:/Users/Hussain/Downloads/gnebehay-OpenTLD-808300c/src/opentld/../3rdparty/cvblobs;C:/Users/Hussain/Downloads/gnebehay-OpenTLD-808300c/src/opentld/../3rdparty/libconfig;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" -DBUILD_TYPE=$(Configuration) -P cmake_install.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:/OpenCV/build;C:/OpenCV/include;C:/OpenCV/include/opencv;C:/OpenCV/modules/core/include;C:/OpenCV/modules/imgproc/include;C:/OpenCV/modules/flann/include;C:/OpenCV/modules/highgui/include;C:/OpenCV/modules/features2d/include;C:/OpenCV/modules/calib3d/include;C:/OpenCV/modules/ml/include;C:/OpenCV/modules/video/include;C:/OpenCV/modules/objdetect/include;C:/OpenCV/modules/contrib/include;C:/OpenCV/modules/photo/include;C:/OpenCV/modules/legacy/include;C:/OpenCV/modules/gpu/include;C:/OpenCV/modules/nonfree/include;C:/OpenCV/modules/stitching/include;C:/OpenCV/modules/superres/include;C:/OpenCV/modules/ts/include;C:/OpenCV/modules/videostab/include;C:/Users/Hussain/Downloads/gnebehay-OpenTLD-808300c/src/opentld/main;C:/Users/Hussain/Downloads/gnebehay-OpenTLD-808300c/src/opentld/../libopentld/imacq;C:/Users/Hussain/Downloads/gnebehay-OpenTLD-808300c/src/opentld/../libopentld/mftracker;C:/Users/Hussain/Downloads/gnebehay-OpenTLD-808300c/src/opentld/../libopentld/tld;C:/Users/Hussain/Downloads/gnebehay-OpenTLD-808300c/src/opentld/../3rdparty/cvblobs;C:/Users/Hussain/Downloads/gnebehay-OpenTLD-808300c/src/opentld/../3rdparty/libconfig;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" -DBUILD_TYPE=$(Configuration) -P cmake_install.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\CMakeFiles\8bf8ece803ff112dd32089989161eae4\INSTALL_force.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'"> </Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+cd .
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/Users/Hussain/Downloads/gnebehay-OpenTLD-808300c/CMakeFiles/8bf8ece803ff112dd32089989161eae4/INSTALL_force.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Users\Hussain\Downloads\gnebehay-OpenTLD-808300c\src\opentld\CMakeFiles\INSTALL_force</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'"> </Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+cd .
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/Users/Hussain/Downloads/gnebehay-OpenTLD-808300c/CMakeFiles/8bf8ece803ff112dd32089989161eae4/INSTALL_force.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Users\Hussain\Downloads\gnebehay-OpenTLD-808300c\src\opentld\CMakeFiles\INSTALL_force</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'"> </Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+cd .
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:/Users/Hussain/Downloads/gnebehay-OpenTLD-808300c/CMakeFiles/8bf8ece803ff112dd32089989161eae4/INSTALL_force.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\Users\Hussain\Downloads\gnebehay-OpenTLD-808300c\src\opentld\CMakeFiles\INSTALL_force</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'"> </Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+cd .
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:/Users/Hussain/Downloads/gnebehay-OpenTLD-808300c/CMakeFiles/8bf8ece803ff112dd32089989161eae4/INSTALL_force.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\Users\Hussain\Downloads\gnebehay-OpenTLD-808300c\src\opentld\CMakeFiles\INSTALL_force</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:/Users/Hussain/Downloads/gnebehay-OpenTLD-808300c/ALL_BUILD.vcxproj">
+      <Project>1984435E-A966-47B3-AEDB-CF2703344481</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
