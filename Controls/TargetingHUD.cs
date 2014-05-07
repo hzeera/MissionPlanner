@@ -14,6 +14,9 @@ namespace ArdupilotMega.Controls
     using OpenTK.Graphics.OpenGL;
     using System.Drawing.Imaging;
 
+    /**
+     * Class to provide a visual way of selecting a target on screen.
+     **/
     public partial class TargetingHUD : HUD
     {
         Graphics graphicsObjectGDIP;

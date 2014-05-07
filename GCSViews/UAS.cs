@@ -16,39 +16,43 @@ using System.IO.Ports;
 
 namespace ArdupilotMega.GCSViews
 {
-    public partial class UAS : MyUserControl//, IActivate, IDeactivate
+    /**
+     * Main UAS View
+     **/
+    public partial class UAS : MyUserControl
     {
-        private int startX=0, startY=0, endX=0, endY=0;
+        private int startX=0, startY=0, endX=0, endY=0, prevHValue, prevVValue;
         private bool stabroll, stabpitch, stabyaw;
         private MAVLink.MAV_MOUNT_MODE mountMode;
         public static ArdupilotMega.Controls.TargetingHUD myhud;
         private System.Timers.Timer timer; 
         public EventHandler ConnectHandler;
-        private StepperController stepperController;
+        private ServoController servoController;
 
         public UAS()
         {
-            foreach(string port in SerialPort.GetPortNames())
+            
+            servoController = ServoController.getInstance();
+            servoController.setBaudRate(115200);
+            InitializeComponent();
+
+            List<string> devices = WebCamService.Capture.getDevices();
+            foreach (string device in devices)
+            {
+                cameraBox.Items.Add(device);
+            }
+
+            foreach (string port in SerialPort.GetPortNames())
             {
                 portNameBox.Items.Add(port);
             }
-            stepperController = new StepperController("COM7", 9600);
-            InitializeComponent();
+
             if (!hud1.Visible)
                 hud1.Visible = true;
             if (!hud1.Enabled)
                 hud1.Enabled = true;
             if (!hud1.hudon)
                 hud1.hudon = true;
-
-            /*vTrackBar.Enabled = false;
-            hTrackBar.Enabled = false;
-            reset.Enabled = false;
-            modeBox.Enabled = false;
-            stabilityCheck.Enabled = false;
-            stabpitchCheck.Enabled = false;
-            stabyawCheck.Enabled = false;
-            compModeBar.Enabled = false;*/
 
             ConnectHandler = new EventHandler(UAS_Connect);
             myhud = hud1;
@@ -58,15 +62,15 @@ namespace ArdupilotMega.GCSViews
             timer.Elapsed += new ElapsedEventHandler(timer_Elapsed);
             timer.Start();
 
-            hTrackBar.Maximum = 360;
-            hTrackBar.Minimum = 0;
-            hTrackBar.Value = 180;
-            vTrackBar.Maximum = 0;
-            vTrackBar.Minimum = -9000;
-            vTrackBar.Value = -4500;
+            hTrackBar.Maximum = 150;
+            hTrackBar.Minimum = 50;
+            hTrackBar.Value = 100;
+            vTrackBar.Maximum = 150;
+            vTrackBar.Minimum = 50;
+            vTrackBar.Value = 100;
 
-            pitchLabel.Text = "Pitch: " + vTrackBar.Value / 100;
-            rollLabel.Text = "Roll: " + hTrackBar.Value / 100;
+            pitchLabel.Text = "Pitch: " + vTrackBar.Value;
+            rollLabel.Text = "Roll: " + hTrackBar.Value;
 
             stabroll = true;
             stabpitch = true;
@@ -88,7 +92,6 @@ namespace ArdupilotMega.GCSViews
             hud1.DrawImage(camimage, 0, 0, hud1.Width, hud1.Height);
         }
 
-        //paint rectangle
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -96,25 +99,26 @@ namespace ArdupilotMega.GCSViews
 
         void UAS_hTrackBarMoved(object sender, EventArgs e)
         {
-            rollLabel.Text = "Roll: " + hTrackBar.Value / 100;
-            stepperController.setAngle(hTrackBar.Value);
+            rollLabel.Text = "Roll: " + hTrackBar.Value;
+            servoController.setAngle(hTrackBar.Value, vTrackBar.Value);
+            prevHValue = hTrackBar.Value;
         }
 
         void UAS_vTrackBarMoved(object sender, EventArgs e)
         {
-            //Not sure if this is the right value
-            MainV2.comPort.setMountControl(vTrackBar.Value, 0, 0, false);
-            pitchLabel.Text = "Pitch: " + vTrackBar.Value / 100;
-            rollLabel.Text = "Roll: " + hTrackBar.Value / 100;
+            servoController.setAngle(hTrackBar.Value, vTrackBar.Value);
+            pitchLabel.Text = "Pitch: " + vTrackBar.Value;
+            prevVValue = vTrackBar.Value;
         }
 
         private void UAS_ResetClicked(object sender, EventArgs e)
         {
             MainV2.comPort.setMountControl(0, 0, 0, false);
-            hTrackBar.Value = 0;
-            vTrackBar.Value = -4500;
-            pitchLabel.Text = "Pitch: " + vTrackBar.Value / 100;
-            rollLabel.Text = "Roll: " + hTrackBar.Value / 100;
+            hTrackBar.Value = 90;
+            vTrackBar.Value = 90;
+            servoController.setAngle(90, 90);
+            pitchLabel.Text = "Pitch: " + vTrackBar.Value;
+            rollLabel.Text = "Roll: " + hTrackBar.Value;
         }
 
         private void modeBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -167,32 +171,55 @@ namespace ArdupilotMega.GCSViews
 
         private void portNameBox_IndexChanged(object sender, EventArgs e)
         {
-            stepperController.setPortName(portNameBox.Items[portNameBox.SelectedIndex].ToString());
+            servoController.setPortName(portNameBox.Items[portNameBox.SelectedIndex].ToString());
         }
 
         private void trackButton_Click(object sender, EventArgs e)
         {
-            TLDTracker tldTracker = new TLDTracker();
+            int device = 0;
+            if (cameraBox.SelectedIndex >= 0)
+                device = cameraBox.SelectedIndex;
+            TLDTracker tldTracker = new TLDTracker(device);
             Thread thread = new Thread(new ThreadStart(tldTracker.runTLD));
             thread.Start();
         }
 
         private void portButton_Click(object sender, EventArgs e)
         {
-            stepperController.Open();
-            hTrackBar.ValueChanged += UAS_hTrackBarMoved;
+            servoController.Open();
+            servoController.setAngle(90, 90);
+            hTrackBar.MouseUp += UAS_hTrackBarMoved;
+            vTrackBar.MouseUp += UAS_vTrackBarMoved;
+        }
+
+        private void closePort_Click(object sender, EventArgs e)
+        {
+            servoController.Close();
         }
     }
 
+    /**
+     * Class to move camera based on TLD Target's location on screen.
+     * 
+     **/
     class TLDTracker
     {
+        private int device;
+        private ServoController controller;
+
+        public TLDTracker(int device)
+        {
+            this.device = device;
+            controller = ServoController.getInstance();
+        }
+
         public void runTLD()
         {
             Process TLDApp = new Process();
             TLDApp.StartInfo.UseShellExecute = false;
             TLDApp.StartInfo.RedirectStandardOutput = true;
-            TLDApp.StartInfo.FileName = @"C:\Users\Hussain\Downloads\gnebehay-OpenTLD-808300c\bin\Debug\opentld.exe";
-            TLDApp.StartInfo.Arguments = "-s";
+            TLDApp.StartInfo.FileName = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + @"\OpenTLD\opentld.exe";
+            TLDApp.StartInfo.Arguments = "-s -n " + device;
             TLDApp.Start();
 
             string output;
@@ -226,6 +253,46 @@ namespace ArdupilotMega.GCSViews
                 vision_position.bottomRightX = tx2;
                 vision_position.bottomRightY = ty2;
                 MainV2.comPort.sendPacket(vision_position);
+                //80, 160, 480, 560
+                //80, 160, 340, 420
+                int xStep = 0;
+                int yStep = 0;
+
+                if (tx1 < 80)
+                {
+                    xStep = 3;
+                }
+                else if (tx1 < 160)
+                {
+                    xStep = 1;
+                }
+                else if (tx2 > 560)
+                {
+                    xStep = -3;
+                }
+                else if (tx2 > 480)
+                {
+                    xStep = -1;
+                }
+
+                if (ty1 < 60)
+                {
+                    yStep = -3;
+                }
+                else if (ty1 < 120)
+                {
+                    yStep = -1;
+                }
+                else if (ty2 > 420)
+                {
+                    yStep = 3;
+                }
+                else if (ty2 > 360)
+                {
+                    yStep = 1;
+                }
+
+                controller.setStep(xStep, yStep);
             }
 
         }

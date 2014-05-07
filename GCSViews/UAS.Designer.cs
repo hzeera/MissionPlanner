@@ -49,6 +49,8 @@
             this.trackButton = new System.Windows.Forms.Button();
             this.portNameBox = new System.Windows.Forms.ComboBox();
             this.portButton = new System.Windows.Forms.Button();
+            this.cameraBox = new System.Windows.Forms.ComboBox();
+            this.closePort = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.hTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.compModeBar)).BeginInit();
@@ -72,7 +74,6 @@
             this.vTrackBar.Size = new System.Drawing.Size(56, 295);
             this.vTrackBar.TabIndex = 7;
             this.vTrackBar.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.vTrackBar.ValueChanged += new System.EventHandler(this.UAS_vTrackBarMoved);
             // 
             // reset
             // 
@@ -280,7 +281,7 @@
             // 
             // trackButton
             // 
-            this.trackButton.Location = new System.Drawing.Point(564, 319);
+            this.trackButton.Location = new System.Drawing.Point(560, 362);
             this.trackButton.Name = "trackButton";
             this.trackButton.Size = new System.Drawing.Size(169, 40);
             this.trackButton.TabIndex = 26;
@@ -308,10 +309,30 @@
             this.portButton.UseVisualStyleBackColor = true;
             this.portButton.Click += new System.EventHandler(this.portButton_Click);
             // 
+            // cameraBox
+            // 
+            this.cameraBox.FormattingEnabled = true;
+            this.cameraBox.Location = new System.Drawing.Point(560, 319);
+            this.cameraBox.Name = "cameraBox";
+            this.cameraBox.Size = new System.Drawing.Size(169, 24);
+            this.cameraBox.TabIndex = 29;
+            // 
+            // closePort
+            // 
+            this.closePort.Location = new System.Drawing.Point(842, 129);
+            this.closePort.Name = "closePort";
+            this.closePort.Size = new System.Drawing.Size(121, 35);
+            this.closePort.TabIndex = 30;
+            this.closePort.Text = "Close Port";
+            this.closePort.UseVisualStyleBackColor = true;
+            this.closePort.Click += new System.EventHandler(this.closePort_Click);
+            // 
             // UAS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.closePort);
+            this.Controls.Add(this.cameraBox);
             this.Controls.Add(this.portButton);
             this.Controls.Add(this.portNameBox);
             this.Controls.Add(this.trackButton);
@@ -366,6 +387,8 @@
         private System.Windows.Forms.Button trackButton;
         private System.Windows.Forms.ComboBox portNameBox;
         private System.Windows.Forms.Button portButton;
+        private System.Windows.Forms.ComboBox cameraBox;
+        private System.Windows.Forms.Button closePort;
 
 
     }
